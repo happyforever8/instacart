@@ -1,0 +1,45 @@
+（1）给了个 CodeSignal 的链接，题目就是其他面经里的 KV 题。  note from dong：应该就是leetcode 981
+      ==============================================================
+      还是K V 老题。分三步走那个。久吧一那个
+       我实在是感觉面试过程谈笑风生一气呵成，发一个吐槽一下这是几个意思。。。我还以为第二天hr就会迫不及待找我要onsite时间呢。万万妹想到啊？？？
+  ===========================================================================================
+      亚裔小哥 人还蛮nice。             note from dong：就是981的马甲
+
+    题还是地里的经典key-value store. 他们家题目真的是很固定。
+
+    三个小问
+    get(key), set(key, value) , 一个hashmap搞定
+    `set(key, value)` returns current timestamp.   然后`get(key, timestamp)` 需要return value with the corresponding timestamp. 
+    `get(key)` 需要return value with the latest timestamp, 都需要O(1)解决
+    `get(key, timestamp)` return v‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌alue with timestamp cloest to the given timestamp.
+
+
+
+（2）电面蠡口就把一三问。昂赛
+（3）
+    楼主电面碰到了新题
+    情景是shoppers从某location pickup order，然后deliver到另一个location，要求计算从某个地点到另个地点的average travel time。让你implement这些函数。
+    public void pickup(int timestamp, String pickUpLocation, int shopperId)
+    public void deliver(int timestamp, String, DeliverLocation, int shopperId)
+    public double calculateAverage(String locationB, String locationB)
+
+    比如 shopper1 在时间 0 从 地点 A pickup 了order，在时间5 地‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌点B 放下了order
+    shopper2 在时间0 从地点A pickup了order， 在时间6 地点B 放下了order
+    那calculateAverage（A, B) 就返回 1.0*(5 + 6)/2 = 5.5
+    
+    
+    我之前也遇到了这道题。 几个clarification:
+    1. 只需要考虑直接deliver的情况，不需要考虑类似已知 A-B, B-C, 求A-C。
+    2. input都是顺序的，不会出现（shoper1, pickup1, time0), (shoper1, pickup2, time2), (shoper1, deliver1, time1), (shoper1, deliver2, time3) 这样乱序的pickup & deliver。
+    3. 需要自己设计test case，并且编译跑通
+
+（4） note from dong：这个人是karta面，我看有人是karta，有认识直接店面，有人用codesignal店面
+     
+          胡萝卜好像是Staff以上用Karat，Staff以下用CodeSignal。CodeSignal的题跟Karat的完全不一样，不过CodeSignal上面的大概率是time-based key-value store那道题。
+
+    最近面的Karat面试，前10分钟问了两个knowledge相关的问题，感觉只要你回答到关键词，
+    对面就说可以了下一道。第一个问题是关于怎么数据库的选择怎么能够满足scale要求，答出NoSQL DB就pass说下一道了。
+    第二个问题是关于Load Balancer，题目描述里面用的Round-Robin，问你有啥潜在问题，说出load不均衡，
+    应该LB的时候把server load考虑进去，对面就说过了。最后就是coding，找宝藏三连问（https://www.jianshu.com/p/fdbcba5fe5bc），
+    每一问写完还得把给的test case再敲进去，费时间。最后一问有点凶残，只剩20分钟写，最后DFS的部分写完了，但是最后一个loop没写完时间到了。。。。。。。
+    ‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌各位Kara面的一定要把https://www.jianshu.com/p/fdbcba5fe5bc上的题刷熟练了
