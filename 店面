@@ -12,8 +12,49 @@
     `set(key, value)` returns current timestamp.   然后`get(key, timestamp)` 需要return value with the corresponding timestamp. 
     `get(key)` 需要return value with the latest timestamp, 都需要O(1)解决
     `get(key, timestamp)` return v‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌alue with timestamp cloest to the given timestamp.
+    
+    ===========================================又来了个981===========================
+    
+          利口 久巴要
+      良心三连问
+      1. 只要key和value, 实现set和get
+      2. 出了给key, value，还给timestamp。API是int set(string key, string val)，返回的int就是timestamp. get的时候timestamp可以提供也可以不提供。如果不提供或者timestamp找不到，那么返回最新的timestamp对应的value。这里需要去读system time作为timestamp
+      3. 需要找出比timestamp小但是最接近timestamp的那个v‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌alue。就是利口那个题目了
+      
+      
+      ============还是kv store========================
+      设计key-value store:
+
+      (1) 简单的get by key
+      (2) get的时候不给timestamp就返回最新的，给了timestamp的话就去查找有没有这个timestamp的value，没有的话返回null
+      (3) get的时候不给timestamp就返回最新的，给了timestamp的话就去查找有没有这个timestamp的value，没有的话返回这个timestamp之前的最新的value
+
+     ===================================时间有要求===他用的是arraylist + binary search。=======
+     
+     还是经典的KV store题目，刷题网 鹫靶逸。
+
+      一共分成3个部分。
+      1. 最基本的KV store，需要实现get和set。
+      2. get的时候可能带一个timestamp，需要对timestamp精确查找。
+      要求get(没有timestamp，返回最后set的值)，get(有timestamp，找到timestamp时候的值)，
+      set()，全部做到O(1)的时间完成。这一部分花了点时间想该怎么做。
+      3. 在第二部分的基础上，需要支持timestamp的模糊查。不能用treemap做，因为set的时间没办法保证O(1)。
+      这一部分要求get(没有timestamp，返回最后set的值)和set()继续O(1)时间完成，get(有timestamp，返回‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌最大<= timestamp时的值)需要做到O(logn)。
+      
+      
+      ===============================================================================
+      
+      一道高频coding问题，二个follow up
+      设计一个in mem cache，提供两个功能，get(key) 和 set(key, value)   
+         -  hashtable秒过
+      Follow up 1. 加上一个timestamp, set可以调用多次，自动记录timestamp信息，get by key and timestmap, 如果没有返回空
+         - nested hashtable 秒过
+      Follow up 2. get by key and timestamp 需要返回 <=timestamp 但是离timestmap最近的设定的value
+         - set key value的时候用一个array 来记录所有的 (times‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌tamp, value) tuple，当get的时候二分法解之
 
 
+      https://www.1point3acres.com/bbs/thread-738258-1-1.html  981 again
+      https://www.1point3acres.com/bbs/thread-723258-1-1.html。 981
 
 （2）电面蠡口就把一三问。昂赛
 （3）
@@ -43,3 +84,17 @@
     应该LB的时候把server load考虑进去，对面就说过了。最后就是coding，找宝藏三连问（https://www.jianshu.com/p/fdbcba5fe5bc），
     每一问写完还得把给的test case再敲进去，费时间。最后一问有点凶残，只剩20分钟写，最后DFS的部分写完了，但是最后一个loop没写完时间到了。。。。。。。
     ‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌各位Kara面的一定要把https://www.jianshu.com/p/fdbcba5fe5bc上的题刷熟练了
+    
+  （5）karta面经   
+  
+       https://www.1point3acres.com/bbs/thread-773559-1-1.html
+       https://www.1point3acres.com/bbs/thread-769366-1-1.html
+       https://www.1point3acres.com/bbs/thread-753107-1-1.html
+       https://www.1point3acres.com/bbs/thread-756545-1-1.html
+       https://www.1point3acres.com/bbs/thread-744202-1-1.html
+       https://www.1point3acres.com/bbs/thread-723995-1-1.html
+       https://www.1point3acres.com/bbs/thread-769008-1-1.html   ==== 有截图这个
+       
+   （6）note from dong： 非常规的面筋
+   https://www.1point3acres.com/bbs/thread-769600-1-1.html  
+   https://www.1point3acres.com/bbs/thread-770889-1-1.html。 
