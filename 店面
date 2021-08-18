@@ -1,3 +1,8 @@
+https://gist.github.com/ro31337/e6b294e2b9593e49a6412b2a560c5a50
+
+
+
+
 （1）给了个 CodeSignal 的链接，题目就是其他面经里的 KV 题。  note from dong：应该就是leetcode 981
       ==============================================================
       还是K V 老题。分三步走那个。久吧一那个
@@ -55,6 +60,41 @@
 
       https://www.1point3acres.com/bbs/thread-738258-1-1.html  981 again
       https://www.1point3acres.com/bbs/thread-723258-1-1.html。 981
+      
+      
+      ==========================================================================================================
+      
+            亚裔小哥 人还蛮nice
+
+            题还是地里的经典key-value store. 他们家题目真的是很固定。
+
+            三个小问
+      get(key), set(key, value) , 一个hashmap搞定
+      `set(key, value)` returns current timestamp.   然后`get(key, timestamp)` 需要return value with the corresponding timestamp. `get(key)` 需要return value with the latest timestamp, 都需要O(1)解决
+      `get(key, timestamp)` return value with ti‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌mestamp cloest to the given timestamp.
+
+==============================================================================================================================
+      外加timestamp。
+      set(k, v)
+      get(k)
+      LZ用的Map<String, TreeMap<Long, String>>数据结构。
+      分三问还是四问忘了。不过最后一问求如果timestramp找不到，return上一个最近timestamp set的对应的ke‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌y的value
+      TreeMap有个lowerKey(K key), 比较方便
+
+
+就是发上来和大家确认一下题还没换 :)
+
+设计key-value store:
+
+(1) 简单的get by key
+(2) get的时候不给timestamp就返回最新的，给了timestamp的话就去查找有没有这个timestamp的value，没有的话返回null
+(3) get的时候不给timestamp就返回最新的，给了timestamp的话就去查找有没有这个timestamp的value，没有的话返回这个timestamp之前的最新的value
+
+
+
+
+
+===============================================================================================================
 
 （2）电面蠡口就把一三问。昂赛
 （3）
