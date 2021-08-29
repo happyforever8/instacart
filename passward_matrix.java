@@ -71,3 +71,182 @@ T5=T4
 
 设计题：design shopper payment verification service。问了api，security，data model， scale。
 
+
+
+
+======================Question one=====================
+  
+  package password;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+
+public class PassWord {
+	static List<String> passwordString = new ArrayList<>();
+	static List<Integer> numsIndex = new ArrayList<>();
+	
+	public static void main(String[] args) throws IOException {
+
+		 Scanner scanner = new Scanner(
+       new FileReader("/Users/doshu/Desktop/untitled folder 2/password.txt"));
+// bufferReader needs to handle the IO exception
+//	BufferedReader reader =  new BufferedReader
+//    (new FileReader("/Users/doshu/Desktop/untitled folder 2/password1.txt"));
+//	helper(reader);
+			 
+		 
+		helper(scanner);
+	}
+	
+	public static void helper(Scanner scanner){
+			String line = "";
+			
+			while (scanner.hasNext())  {
+				line = scanner.nextLine();
+				
+				System.out.println(line);
+
+				if (line.contains("[")){
+					numsIndex = convertIndex(line);
+					
+				} else if (line.length() > 0){
+					passwordString.add(line); 
+				}
+			}
+	
+	
+		Collections.reverse(passwordString);
+		int row = numsIndex.get(1);
+		int col = numsIndex.get(0);
+		System.out.println(passwordString.get(row).charAt(col));
+		scanner.close();
+		
+		
+		
+	}
+	
+	public static List<Integer> convertIndex(String str){
+		char[] ch = str.toCharArray();
+		List<Integer> list = new ArrayList<>();
+		
+		for (char c : ch){
+			if (c >= '0' && c <= '9'){
+				list.add(c - '0');
+			}
+		}
+		return list;
+	}
+
+}
+=====================Question two and three-=============
+  
+  package password;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+
+
+public class PassWord1 {
+	static List<List<String>> passwordList = new ArrayList<>();
+	static List<List<Integer>> indexList = new ArrayList<>();
+	static List<Integer> positionList = new ArrayList<>();
+	
+	static Set<Integer> visited = new HashSet<>();
+	
+	static List<Character> result = new ArrayList<>();
+	public static void main(String[] args) throws IOException {
+		
+		 Scanner scanner = new Scanner(
+       new FileReader("/Users/doshu/Desktop/untitled folder 2/password1.txt"));
+
+//		BufferedReader reader =  
+    //new BufferedReader(new FileReader("/Users/doshu/Desktop/untitled folder 2/password1.txt"));
+//		helper(reader);
+		 
+		helper(scanner);
+		char[] charSet = new char[positionList.size()];
+		
+		for (int i = 0; i < positionList.size(); i++){
+			charSet[positionList.get(i)] = result.get(i);
+		}
+		
+		System.out.println(String.valueOf(charSet));
+	}
+	// add passwordString to passwordList
+	// if reachEnd or line length is zero
+	public static void helper(Scanner scanner){
+		List<String> passwordString = new ArrayList<>();
+		List<Integer> numsIndex = new ArrayList<>();
+		String line = "";
+		boolean isEndOfFile = false;
+		boolean reachEnd = false;
+		while (!isEndOfFile)  {
+			if (scanner.hasNext()){
+				line = scanner.nextLine();
+				System.out.println(line);
+			} else {
+				reachEnd = true;
+			}
+			//System.out.println(line);
+			if ((reachEnd || line.length() == 0 )){
+		    	passwordList.add(new ArrayList<>(passwordString));
+		    	indexList.add(new ArrayList<>(numsIndex));
+		    	
+				Collections.reverse(passwordString);
+				int row = numsIndex.get(1);
+				int col = numsIndex.get(0);
+				result.add(passwordString.get(row).charAt(col));
+		    	passwordString.clear();
+		    	numsIndex.clear(); 
+		    	if (reachEnd){
+		    		isEndOfFile = true;
+		    	}
+		    } else if (line.matches("[0-9]+")){
+				
+        
+        // question three 
+        // just need to add a visited set
+// 				if (visited.contains(Integer.parseInt(line))){
+// 					break;
+// 				}
+// 				visited.add(Integer.parseInt(line));
+// 				positionList.add(Integer.parseInt(line));
+			} else if (line.contains("[")){
+				numsIndex = convertIndex(line);			
+			} else if (line.length() > 0){
+				passwordString.add(line); 
+			} 
+
+		}
+		scanner.close();
+		
+	}
+	
+	public static List<Integer> convertIndex(String str){
+		char[] ch = str.toCharArray();
+		List<Integer> list = new ArrayList<>();
+		
+		for (char c : ch){
+			if (c >= '0' && c <= '9'){
+				list.add(c - '0');
+			}
+		}
+		return list;
+	}
+
+}
+
+
