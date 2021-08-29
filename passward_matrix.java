@@ -97,37 +97,27 @@ public class PassWord {
 // bufferReader needs to handle the IO exception
 //	BufferedReader reader =  new BufferedReader
 //    (new FileReader("/Users/doshu/Desktop/untitled folder 2/password1.txt"));
-//	helper(reader);
-			 
-		 
-		helper(scanner);
+//	helper(reader); 
+	helper(scanner);
 	}
-	
 	public static void helper(Scanner scanner){
 			String line = "";
 			
-			while (scanner.hasNext())  {
-				line = scanner.nextLine();
-				
-				System.out.println(line);
+	    while (scanner.hasNext())  {
+		line = scanner.nextLine();		
+		System.out.println(line);
 
-				if (line.contains("[")){
-					numsIndex = convertIndex(line);
-					
-				} else if (line.length() > 0){
-					passwordString.add(line); 
-				}
-			}
-	
-	
-		Collections.reverse(passwordString);
-		int row = numsIndex.get(1);
-		int col = numsIndex.get(0);
-		System.out.println(passwordString.get(row).charAt(col));
-		scanner.close();
-		
-		
-		
+		if (line.contains("[")){
+		    numsIndex = convertIndex(line);					
+		} else if (line.length() > 0){
+		    passwordString.add(line); 
+		}
+	   }
+	  Collections.reverse(passwordString);
+	  int row = numsIndex.get(1);
+	  int col = numsIndex.get(0);
+	  System.out.println(passwordString.get(row).charAt(col));
+	  scanner.close();	
 	}
 	
 	public static List<Integer> convertIndex(String str){
