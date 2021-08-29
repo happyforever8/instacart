@@ -220,34 +220,77 @@ public class HelloWorld{
  // ***************solution two without treemap***************
 // 时间复杂度：set 操作的复杂度为 O(1)O(1)；get 操作的复杂度为 O(\log{n})O(logn)
 // 空间复杂度：O(n)O(n)
-   class Node {
-        String key;
-        String value;
-        int timeStamp;
-        Node (String key, String value, int timeStamp) {
-            this.key = key;
-            this.value = value;
-            this.timeStamp = timeStamp;
+   public class HelloWorld{
+
+     public static void main(String []args)  throws InterruptedException{
+        
+        TimeMap3 timeMap3 = new TimeMap3();
+        
+        System.out.println(timeMap3.get("hello"));
+        
+        long time1 = timeMap3.set("hello", "one");
+        System.out.println(time1);
+        
+        Thread.sleep(4000);
+        long time2 = timeMap3.set("hello", "two");
+        System.out.println(time2);
+        
+        System.out.println("get is " + timeMap3.get("hello", time2));
+         System.out.println("get is " + timeMap3.get("hello", time2 + 100));
+        
+        
+         System.out.println("get is" + timeMap3.get("hello", time1 - 100));
+         System.out.println("get is " + timeMap3.get("hello", time1 + 1));
+         
+          System.out.println("get is " + timeMap3.get("hello"));
+        
+     }
+     
+     
+  static class TimeMap3 {
+    private Map<String, List<Node>> map;
+    public TimeMap3() {
+        map = new HashMap<>();
+    }
+ 
+    public Long set(String key, String value) {
+        List<Node> nodes = map.get(key);
+        if (nodes == null) {
+            nodes = new ArrayList<Node>();
+            map.put(key, nodes);
+        }
+        Long t = System.currentTimeMillis();
+        nodes.add(new Node(key, value, t));
+        return t;
+    }
+     
+    public String get(String key, long timestamp) {
+        List<Node> nodes = map.get(key);
+        if (nodes == null || nodes.isEmpty()) {
+            return "";
+        } else {
+            return search(nodes, timestamp);
         }
     }
-    
-    Map<String, List<Node>> map = new HashMap<>();
-    public void set(String key, String value, int timeStamp) {
-        List<Node> list = map.getOrDefault(key, new ArrayList<>());
-        list.add(new Node(key, value, timeStamp));
-        map.put(key, list);
+     
+    public String get(String key) {
+        List<Node> nodes = map.get(key);
+        if (nodes == null || nodes.isEmpty()) {
+            return null;
+        } else {
+            return nodes.get(nodes.size() - 1).value;
+        }
     }
-    
-    public String get(String key, int timeStamp) {
-        List<Node> list = map.getOrDefault(key, new ArrayList<>());
-        if (list.isEmpty()) return "";
+     
+  public String search(List<Node> nodes, long timeStamp) {
+       
         int low =0;
-         int high = list.size() -1;
+         int high = nodes.size() -1;
 
         // Binary search through
          while(low + 1 < high){
              int mid = (high + low)/2;
-             Node midTerm = list.get(mid);
+             Node midTerm = nodes.get(mid);
              if(midTerm.timeStamp == timeStamp){
                  return midTerm.value;
              } else if( midTerm.timeStamp < timeStamp){
@@ -258,14 +301,27 @@ public class HelloWorld{
          }
          // Now left pointer is less than right pointer
          // Check right pointer <= timerstamp as we want to get the greatest time smaller than the timestamp
-        if(list.get(high).timeStamp <= timeStamp){
-            return list.get(high).value;
+        if(nodes.get(high).timeStamp <= timeStamp){
+            return nodes.get(high).value;
         //  Check left
-        }else if(list.get(low).timeStamp <= timeStamp){
-            return list.get(low).value;
+        }else if(nodes.get(low).timeStamp <= timeStamp){
+            return nodes.get(low).value;
         }
          // Must be lower than the lowest possible value
             return "";                
     }
+}
+ 
+ static class Node {
+        String key;
+        String value;
+        long timeStamp;
+        Node (String key, String value, long timeStamp) {
+            this.key = key;
+            this.value = value;
+            this.timeStamp = timeStamp;
+        }
+    }
+
 
 }
