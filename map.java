@@ -60,14 +60,17 @@ public class HelloWorld{
      // get(key, timestamp) time is o(1)
   static class TimeMap2 {
     
-    Map<String, HashMap<Integer, String>> map;
+    Map<String, HashMap<Long, String>> map;
     
     /** Initialize your data structure here. */
     public TimeMap2() {
        map = new HashMap<>();
     }
     
-    public void set(String key, String value, int timestamp) {
+    public void set(String key, String value) {
+        // timeStamp is system timeStamp
+         
+        Long timestamp = System.currentTimeMillis();
         map.putIfAbsent(key, new HashMap<>());
         map.get(key).put(timestamp, value);
     }
@@ -77,18 +80,18 @@ public class HelloWorld{
             return "";
         }
          String result = "";
-         HashMap<Integer, String> currMap = map.get(key);
+         HashMap<Long, String> currMap = map.get(key);
          for(Map.Entry m : currMap.entrySet()){    
              result = (String)m.getValue();
           }  
          
          return result;
     }
-    public String get(String key, int timestamp) {
+    public String get(String key, long timestamp) {
         if (!map.containsKey(key)){
             return "";
         }
-        Map<Integer, String> currMap = map.get(key);
+        Map<Long, String> currMap = map.get(key);
         
         if (currMap.containsKey(timestamp)){
            return  currMap.get(timestamp);
@@ -104,8 +107,8 @@ public class HelloWorld{
       static class Node {
         String key;
         String value;
-        int timeStamp;
-        Node (String key, String value, int timeStamp) {
+        long timeStamp;
+        Node (String key, String value, long timeStamp) {
             this.key = key;
             this.value = value;
             this.timeStamp = timeStamp;
@@ -113,11 +116,13 @@ public class HelloWorld{
     }
     
     Map<String, List<Node>> map = new HashMap<>();
-    Map<String, HashMap<Integer, String>> timeToValueMap = new HashMap<>();
+    Map<String, HashMap<Long, String>> timeToValueMap = new HashMap<>();
     
    
    
-    public  void set(String key, String value, int timeStamp) {
+    public  void set(String key, String value) {
+         // using sytem time stamp
+          Long timeStamp = System.currentTimeMillis();
         List<Node> list = map.getOrDefault(key, new ArrayList<>());
         list.add(new Node(key, value, timeStamp));
         map.put(key, list);
