@@ -1,35 +1,23 @@
 import java.util.*;
 public class HelloWorld{
 
+==============Question one================
+import java.util.*;
+public class HelloWorld{
+
      public static void main(String []args){
         System.out.println("Hello World");
         TimeMap1 timeMap1 = new TimeMap1();
-        timeMap1.set("1", "2");
-        timeMap1.set("", "3");
-        timeMap1.set("1", "4");
-        System.out.println(timeMap1.get("1") + "   timeMap1");
-        
-         System.out.println("=============================");
-        
-        TimeMap2 timeMap2 = new TimeMap2();
-        timeMap2.set("1", "2", 1);
-        timeMap2.set("", "3", 2);
-        timeMap2.set("1", "4", 3);
-        System.out.println(timeMap2.get("1") + "   without time");
-        System.out.println(timeMap2.get("1", 1) + "   with time");
+        System.out.println(timeMap1.get(""));
+        System.out.println(timeMap1.get("hell0"));
         
         
-          TimeMap22 timeMap22 = new TimeMap22();
-        timeMap22.set("1", "2", 1);
-        timeMap22.set("", "3", 2);
-        timeMap22.set("1", "4", 3);
-        System.out.println(timeMap22.get("1") + "   without time");
-        System.out.println(timeMap22.get("1", 1) + "   with time");
+        timeMap1.set("hello", "hello_one");
+        System.out.println(timeMap1.get("hello"));
+        timeMap1.set("hello", "hello_two");
+        System.out.println(timeMap1.get("hello"));
         
      }
-     
-     
-     
     // question here
     // if same key, value will override????
     // if there is no key, return null string???
@@ -51,7 +39,8 @@ public class HelloWorld{
         return map.get(key);
     }
   }
-//=====================question two =====================================================
+}    
+===============Question two ===================
      // question here
      // what is the timeStamp type, string or integer
      // what able the same key, return latest value????
@@ -101,9 +90,46 @@ public class HelloWorld{
     }
   }
   
-   // ***************solution two get(key) is o(1)***************
+ ***************solution two get(key) is o(1)***************
   
-  static class TimeMap22 {
+import java.util.*;
+public class HelloWorld{
+
+     public static void main(String []args)  throws InterruptedException{
+        System.out.println("Hello World");
+        TimeMap2 timeMap2 = new TimeMap2();
+        System.out.println(timeMap2.get(""));
+        System.out.println(timeMap2.get("hello"));
+        
+        
+        timeMap2.set("hello", "hello_one");
+        System.out.println(timeMap2.get("hello"));
+        
+        
+        Long timeStamp1 = System.currentTimeMillis();
+        System.out.println(timeStamp1);
+        System.out.println( timeMap2.set("hello", "hello_two"));
+        
+         Thread.sleep(4000);
+        
+        
+        Long timeStamp2 = System.currentTimeMillis();
+        System.out.println(timeStamp2);
+        System.out.println(timeMap2.set("hello", "hello_three"));
+        
+        
+         System.out.println(timeMap2.get("hello", timeStamp1));
+        
+         System.out.println(timeMap2.get("hello", timeStamp2));
+         
+         
+          System.out.println(timeMap2.set("hello", "hello_four"));
+          System.out.println(timeMap2.get("hello"));
+        
+     }
+     
+     
+   static class TimeMap2 {
       static class Node {
         String key;
         String value;
@@ -120,43 +146,43 @@ public class HelloWorld{
     
    
    
-    public  void set(String key, String value) {
+    public Long set(String key, String value) {
          // using sytem time stamp
-          Long timeStamp = System.currentTimeMillis();
+        Long timeStamp = System.currentTimeMillis();
         List<Node> list = map.getOrDefault(key, new ArrayList<>());
         list.add(new Node(key, value, timeStamp));
         map.put(key, list);
         
         timeToValueMap.putIfAbsent(key, new HashMap<>());
         timeToValueMap.get(key).put(timeStamp, value);
+        
+        return timeStamp;
     }
     
-    public  String get(String key, int timeStamp) {
-        // List<Node> list = map.getOrDefault(key, new ArrayList<>());
-        // if (list.isEmpty()) return "";
-        
-        if (!timeToValueMap.containsKey(key)){
+    public  String get(String key, long timeStamp) {
+         List<Node> list = map.get(key);
+        if (list == null || list.isEmpty()){
             return "";
         }
-        Map<Integer, String> currMap = timeToValueMap.get(key);
+        Map<Long, String> currMap = timeToValueMap.get(key);
         
-        if (currMap.containsKey(timeStamp)){
-           return  currMap.get(timeStamp);
+        if (!currMap.containsKey(timeStamp)){
+            return "";
         }
           
-        return  "";
+        return  currMap.get(timeStamp);
                      
     }
     public  String get(String key) {
-        List<Node> list = map.getOrDefault(key, new ArrayList<>());
-        if (list.isEmpty()) return "";
-        
+        List<Node> list = map.get(key);
+        if (list == null || list.isEmpty()){
+            return "";
+        }
         return list.get(list.size() - 1).value; 
-                     
     }
       
   }
-  
+}
   
   
   //==============================question three==================================
