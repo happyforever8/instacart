@@ -8,14 +8,17 @@ public class HelloWorld{
      public static void main(String []args){
         System.out.println("Hello World");
         TimeMap1 timeMap1 = new TimeMap1();
-        System.out.println(timeMap1.get(""));
-        System.out.println(timeMap1.get("hell0"));
+        System.out.println(timeMap1.get("")); // return "";
+        System.out.println(timeMap1.get("hell0")); //return "";
         
         
-        timeMap1.set("hello", "hello_one");
-        System.out.println(timeMap1.get("hello"));
-        timeMap1.set("hello", "hello_two");
-        System.out.println(timeMap1.get("hello"));
+        timeMap1.set("hello", "one");
+        System.out.println(timeMap1.get("hello")); // return one
+        timeMap1.set("hello", "hello_two");        
+        System.out.println(timeMap1.get("hello")); // return two
+          
+        timeMap1.set("good", "good");        
+        System.out.println(timeMap1.get("good")); // return good
         
      }
     // question here
@@ -98,17 +101,17 @@ public class HelloWorld{
      public static void main(String []args)  throws InterruptedException{
         System.out.println("Hello World");
         TimeMap2 timeMap2 = new TimeMap2();
-        System.out.println(timeMap2.get(""));
-        System.out.println(timeMap2.get("hello"));
+        System.out.println(timeMap2.get(""));  // return "";
+        System.out.println(timeMap2.get("hello"));  // return.  ""
         
         
-        timeMap2.set("hello", "hello_one");
-        System.out.println(timeMap2.get("hello"));
+        timeMap2.set("hello", "one");  // return current timestamp
+        System.out.println(timeMap2.get("hello"));  // return "one"
         
         
         Long timeStamp1 = System.currentTimeMillis();
-        System.out.println(timeStamp1);
-        System.out.println( timeMap2.set("hello", "hello_two"));
+        System.out.println(timeStamp1);  
+        System.out.println( timeMap2.set("hello", "hello_two"));  
         
          Thread.sleep(4000);
         
@@ -235,14 +238,14 @@ public class HelloWorld{
         long time2 = timeMap3.set("hello", "two");
         System.out.println(time2);
         
-        System.out.println("get is " + timeMap3.get("hello", time2));
-         System.out.println("get is " + timeMap3.get("hello", time2 + 100));
+        System.out.println("get is " + timeMap3.get("hello", time2));   // return two
+         System.out.println("get is " + timeMap3.get("hello", time2 + 100));  //return two
         
         
-         System.out.println("get is" + timeMap3.get("hello", time1 - 100));
-         System.out.println("get is " + timeMap3.get("hello", time1 + 1));
+         System.out.println("get is" + timeMap3.get("hello", time1 - 100));  //return "";
+         System.out.println("get is " + timeMap3.get("hello", time1 + 1));   //return one
          
-          System.out.println("get is " + timeMap3.get("hello"));
+          System.out.println("get is " + timeMap3.get("hello"));    //return two
         
      }
      
