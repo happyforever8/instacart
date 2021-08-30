@@ -7,27 +7,27 @@ public class HelloWorld{
 
      public static void main(String []args){
         System.out.println("Hello World");
-        TimeMap1 timeMap1 = new TimeMap1();
-        System.out.println(timeMap1.get("")); // return "";
-        System.out.println(timeMap1.get("hell0")); //return "";
+        TimeMap timeMap = new TimeMap1();
+        System.out.println(timeMap.get("")); // return "";
+        System.out.println(timeMap.get("hell0")); //return "";
         
         
         timeMap1.set("hello", "one");
-        System.out.println(timeMap1.get("hello")); // return one
+        System.out.println(timeMap.get("hello")); // return one
         timeMap1.set("hello", "hello_two");        
-        System.out.println(timeMap1.get("hello")); // return two
+        System.out.println(timeMap.get("hello")); // return two
           
         timeMap1.set("good", "good");        
-        System.out.println(timeMap1.get("good")); // return good
+        System.out.println(timeMap.get("good")); // return good
         
      }
     // question here
     // if same key, value will override????
     // if there is no key, return null string???
-  static class TimeMap1 {
+  static class TimeMap {
     Map<String, String> map;
     /** Initialize your data structure here. */
-    public TimeMap1() {
+    public TimeMap() {
        map = new HashMap<>();
     }
     
