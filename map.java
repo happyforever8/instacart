@@ -234,29 +234,47 @@ public class HelloWorld{
  // ***************solution two without treemap***************
 // 时间复杂度：set 操作的复杂度为 O(1)O(1)；get 操作的复杂度为 O(\log{n})O(logn)
 // 空间复杂度：O(n)O(n)
-   public class HelloWorld{
+  public class HelloWorld{
 
      public static void main(String []args)  throws InterruptedException{
         
         TimeMap3 timeMap3 = new TimeMap3();
         
+        // test without timeStamp
         System.out.println(timeMap3.get("hello"));
+        System.out.println(timeMap3.get(""));
         
-        long time1 = timeMap3.set("hello", "one");
-        System.out.println(time1);
+        
+        // set with system timestamp
+        long timeStamp1 = timeMap3.set("hello", "one");
+        System.out.println(timeStamp1);
         
         Thread.sleep(4000);
-        long time2 = timeMap3.set("hello", "two");
-        System.out.println(time2);
+        long timeStamp2 = timeMap3.set("hello", "two");
+        System.out.println(timeStamp2);
         
-        System.out.println("get is " + timeMap3.get("hello", time2));   // return two
-         System.out.println("get is " + timeMap3.get("hello", time2 + 100));  //return two
+        // test get time stamp
         
-        
-         System.out.println("get is" + timeMap3.get("hello", time1 - 100));  //return "";
-         System.out.println("get is " + timeMap3.get("hello", time1 + 1));   //return one
+         System.out.println(timeMap3.get("hello", timeStamp1));
+         System.out.println(timeMap3.get("hello", timeStamp2));
          
-          System.out.println("get is " + timeMap3.get("hello"));    //return two
+         System.out.println("=============================");
+         
+         // test exact match and fuzzy match
+        
+        System.out.println("get is " + timeMap3.get("hello", timeStamp2));   // return two
+         System.out.println("get is " + timeMap3.get("hello", timeStamp2 + 100));  //return two
+        
+        
+         System.out.println("get is" + timeMap3.get("hello", timeStamp1 - 100));  //return "";
+         System.out.println("get is " + timeMap3.get("hello", timeStamp1 + 1));   //return one
+         
+         
+         System.out.println("get is " + timeMap3.get("hello", timeStamp1 + 10000));   
+         //return two
+         
+         timeMap3.set("hello", "three");
+          System.out.println("get is " + timeMap3.get("hello"));    //return three
         
      }
      
@@ -290,7 +308,7 @@ public class HelloWorld{
     public String get(String key) {
         List<Node> nodes = map.get(key);
         if (nodes == null || nodes.isEmpty()) {
-            return null;
+            return "";
         } else {
             return nodes.get(nodes.size() - 1).value;
         }
