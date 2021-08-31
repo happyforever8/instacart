@@ -6,18 +6,19 @@ import java.util.*;
 public class HelloWorld{
 
      public static void main(String []args){
-        System.out.println("Hello World");
-        TimeMap timeMap = new TimeMap1();
+        TimeMap timeMap = new TimeMap();
+        
         System.out.println(timeMap.get("")); // return "";
-        System.out.println(timeMap.get("hell0")); //return "";
+        System.out.println(timeMap.get("hello")); //return "";
         
         
-        timeMap1.set("hello", "one");
+        timeMap.set("hello", "one");
         System.out.println(timeMap.get("hello")); // return one
-        timeMap1.set("hello", "hello_two");        
+        
+        timeMap.set("hello", "two");        
         System.out.println(timeMap.get("hello")); // return two
           
-        timeMap1.set("good", "good");        
+        timeMap.set("good", "good");   
         System.out.println(timeMap.get("good")); // return good
         
      }
@@ -94,39 +95,49 @@ public class HelloWorld{
   }
   
  ***************solution two get(key) is o(1)***************
-  
 import java.util.*;
 public class HelloWorld{
 
+     // we can use   Map<String, HashMap<Long, String>> map; in this case,
+     // get will be o(n), need to search from the map<long, string>
+     
+     // can recude the time by using additional timeToValueMap
+     //   Map<String, HashMap<Long, String>> timeToValueMap
      public static void main(String []args)  throws InterruptedException{
-        System.out.println("Hello World");
+
+
+
         TimeMap2 timeMap2 = new TimeMap2();
         System.out.println(timeMap2.get(""));  // return "";
         System.out.println(timeMap2.get("hello"));  // return.  ""
         
         
-        timeMap2.set("hello", "one");  // return current timestamp
+        
+        
+        timeMap2.set("hello", "one");  // without timestamp
         System.out.println(timeMap2.get("hello"));  // return "one"
         
-        
+        // testing with timeStamp
         Long timeStamp1 = System.currentTimeMillis();
         System.out.println(timeStamp1);  
-        System.out.println( timeMap2.set("hello", "hello_two"));  
+        System.out.println( timeMap2.set("hello", "two"));  
         
          Thread.sleep(4000);
         
         
         Long timeStamp2 = System.currentTimeMillis();
         System.out.println(timeStamp2);
-        System.out.println(timeMap2.set("hello", "hello_three"));
+        System.out.println(timeMap2.set("hello", "three"));
         
         
          System.out.println(timeMap2.get("hello", timeStamp1));
-        
          System.out.println(timeMap2.get("hello", timeStamp2));
          
-         
-          System.out.println(timeMap2.set("hello", "hello_four"));
+         // if there is no timestamp, get the latest one
+          timeMap2.set("hello", "four");
+          System.out.println(timeMap2.get("hello"));
+          
+          timeMap2.set("hello", "five");
           System.out.println(timeMap2.get("hello"));
         
      }
