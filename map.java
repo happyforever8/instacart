@@ -49,8 +49,8 @@ public class HelloWorld{
      // what is the timeStamp type, string or integer
      // what able the same key, return latest value????
      
-     // get(key) time is o(n)
-     // get(key, timestamp) time is o(1)
+     // get(key) time is o(1)
+     // get(key, timestamp) time is o(n)
   static class TimeMap2 {
     
     Map<String, HashMap<Long, String>> map;
