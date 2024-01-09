@@ -1,3 +1,16 @@
+     还是经典的KV store题目，刷题网 鹫靶逸。
+
+      一共分成3个部分。
+      1. 最基本的KV store，需要实现get和set。
+      2. get的时候可能带一个timestamp，需要对timestamp精确查找。
+      要求get(没有timestamp，返回最后set的值)，get(有timestamp，找到timestamp时候的值)，
+      set()，全部做到O(1)的时间完成。这一部分花了点时间想该怎么做。
+      3. 在第二部分的基础上，需要支持timestamp的模糊查。不能用treemap做，因为set的时间没办法保证O(1)。
+      这一部分要求get(没有timestamp，返回最后set的值)和set()继续O(1)时间完成，get(有timestamp，返回‍‍‍‍‍‍‍‍‌‍‌‌‍‌‌‌‌‌最大<= timestamp时的值)需要做到O(logn)。
+      
+      
+
+
 import java.util.*;
 public class HelloWorld{
 
